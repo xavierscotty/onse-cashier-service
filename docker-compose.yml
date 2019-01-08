@@ -1,0 +1,30 @@
+version: "3"
+services:
+    message-bus:
+      image: 'rabbitmq:3-management'
+      hostname: rabbitmq-host
+      ports:
+        - 5672:5672
+        - 15672:15672
+      networks:
+        - default
+    cashier-service:
+      build: .
+      restart: always
+      volumes:
+        - .:/app
+      depends_on:
+        - message-bus
+      ports:
+        - 5000:5000
+      environment:
+        PORT: 5000
+        RABBITMQ_PORT: 5672
+        RABBITMQ_HOST: message-bus
+        RABBITMQ_QUEUE: transactions
+        RABBITMQ_EXCHANGE: transactions
+      networks:
+        - default
+
+networks:
+  default:

@@ -1,10 +1,20 @@
 import os
 import uuid
+import json
 from flask import Flask, jsonify, request
 from flask_swagger_ui import get_swaggerui_blueprint
 from yaml import Loader, load
 
+from cashier_service.rabbitevents import RabbitProducer
+
+
 SWAGGER_URL = '/docs'
+
+producer_properties = {
+    'exchange': os.getenv('RABBITMQ_EXCHANGE'),
+    'queue': os.getenv('RABBITMQ_QUEUE'),
+    'host': os.getenv('RABBITMQ_HOST', 'localhost')
+}
 
 def create_app():
     app = Flask(__name__)
@@ -21,6 +31,14 @@ def create_app():
         account_name = req_data['accountName']
         amount = req_data['amount']
         action = req_data['action']
+
+        rabbit = RabbitProducer(producer_properties)
+        rabbit.publish(json.dumps({
+            'id': operation_id,
+            'accountName': account_name,
+            'amount': amount,
+            'action': action
+        }))
 
         return jsonify({
             'id': operation_id,
@@ -51,5 +69,3 @@ def setup_swagger():
 
 def get_app_base_path():
    return os.path.dirname(os.path.realpath(__file__))
-
-
