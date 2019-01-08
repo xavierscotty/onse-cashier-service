@@ -17,7 +17,6 @@ def create_app():
     def cashier_create():
 
         req_data = request.get_json()
-        print("Data: {}".format(req_data))
         operation_id = str(uuid.uuid4())
         account_name = req_data['accountName']
         amount = req_data['amount']

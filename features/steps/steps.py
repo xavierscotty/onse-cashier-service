@@ -18,5 +18,4 @@ def step_impl(context):
 @then(u'I should see a {value} {key}')
 def step_impl(context, key, value):
     response = context.response.get_json()
-    print("Response: {}".format(response))
     assert response[key] == value, f'Unexpected JSON; got {repr(response.get_json())} '
