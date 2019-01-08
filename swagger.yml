@@ -1,0 +1,88 @@
+---
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: Cashier Service API
+  description: An API for cashier service
+
+host: "localhost:5000"
+schemes:
+  - http
+
+paths:
+  /health:
+    get:
+      summary: Check the health of the service
+      description: Returns a message indicating the health of the service
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Service is up and running
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Contains the string "OK"
+  /cashier/create/:
+    post:
+      summary: These endpoints are for withdrawn/deposit balance in an acount.
+      description: Provide a service to deposit and withdraw money
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          description: Cashier service payload
+          schema:
+            $ref: "#/definitions/Cashier"
+      responses:
+        200:
+          description: Operations processed
+          schema:
+              $ref: "#/definitions/Response"
+        404:
+          description: Operation failed
+
+definitions:
+ Cashier:
+   type: object
+   properties:
+     accountName:
+       type: string
+       description: Account name
+     amount:
+       type: integer
+       description: Amount to credit/debit
+     action:
+       type: string
+       description: Customer Surname
+       enum:
+       - deposit
+       - withdrawn
+ Response:
+    type: object
+    properties:
+      id:
+        type: string
+        description: UUID of the transactions
+      accountName:
+        type: string
+        description: Account name
+      action:
+       type: string
+       description: Customer Surname
+       enum:
+       - deposit
+       - withdrawn
+      amount:
+        type: string
+        description: Ammount authorized for action
+      status:
+        type: string
+        description: Possible status values
+        enum:
+        - pending
