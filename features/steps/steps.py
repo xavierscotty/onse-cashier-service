@@ -1,12 +1,16 @@
 import json
+
+
 @when(u'I make a request to cashier service')
 def step_impl(context):
     pass
 
+
 @when(u'a request json payload')
 def step_impl(context):
     payload = json.loads(context.text)
-    context.response = context.web_client.post('/cashier/create', json = payload)
+    context.response = context.web_client.post('/cashier/create', json=payload)
+
 
 @then(u'I should receive a CREATED response')
 def step_impl(context):

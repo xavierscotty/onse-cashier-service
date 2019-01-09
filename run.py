@@ -1,7 +1,15 @@
 
 import os
-from cashier_service import create_app
+import structlog
 
+from cashier_service import app
+from cashier_service.broker.rabbitevents import RabbitBroker
+from cashier_service.settings import config, Config
 
 if __name__ == "__main__":
-	create_app().run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
+    broker = RabbitBroker(config['development'])
+    app.create(config=config['development'],
+               broker=broker,
+               logger=structlog.get_logger()
+               ).run(
+        host='0.0.0.0', port=int(Config.PORT))

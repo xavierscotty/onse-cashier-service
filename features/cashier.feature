@@ -6,7 +6,7 @@ Feature: Withdraw or Deposit balance into an account
        And a request json payload
        """
         {
-            "accountName": "123441238",
+            "accountNumber": "123441238",
             "amount": 120,
             "action": "deposit"
         }

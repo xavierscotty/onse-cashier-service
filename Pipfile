@@ -16,6 +16,7 @@ pika= "*"
 flask = "*"
 flask-swagger-ui = "*"
 pyaml = "*"
+structlog = "*"
 
 [requires]
 python_version = "3.7"
