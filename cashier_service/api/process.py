@@ -10,8 +10,6 @@ def process_cashier_requests():
     req_data = request.get_json()
     log = current_app.logger
 
-    log.info("Data received {}".format(req_data), endpoint="/cashier/create")
-
     operation_id = str(uuid4())
     account_name = req_data['accountNumber']
     amount = req_data['amount']

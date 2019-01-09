@@ -8,8 +8,7 @@ from cashier_service.settings import config
 
 
 @pytest.fixture(scope='function')
-def web_client(logger):
-    broker = MockEvents()
+def web_client(logger, broker):
     return create(config=config['testing'], broker=broker, logger=logger).test_client()
 
 
@@ -18,14 +17,27 @@ def logger():
     return Mock()
 
 
+@pytest.fixture(scope='function')
+def broker():
+    return Mock()
+
+def test_should_produce_event(web_client, logger, broker):
+    payload = {
+        "accountNumber": "some-acc-number",
+        "amount": 10815,
+        "action": "withdrawn"
+    }
+    web_client.post('/cashier/create', json=json.loads(json.dumps(payload)))
+    broker.produce.assert_called_once()
+
+
 def test_should_process_client_request(web_client):
     payload = {
         "accountNumber": "some-acc-number",
         "amount": 10815,
         "action": "withdrawn"
     }
-    response = web_client.post(
-        '/cashier/create', json=json.loads(json.dumps(payload)))
+    response = web_client.post('/cashier/create', json=json.loads(json.dumps(payload)))
     assert response.status_code == 201, \
         f'Expected status code to be 201; got {response.status_code}'
     assert response.is_json, \
