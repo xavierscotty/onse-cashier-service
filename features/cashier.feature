@@ -8,8 +8,8 @@ Feature: Withdraw or Deposit balance into an account
         {
             "accountNumber": "123441238",
             "amount": 120,
-            "action": "deposit"
+            "action": "debit"
         }
       """
-    Then I should receive a CREATED response
-        And I should see a pending status
+    Then I should receive an "Accepted" response
+        And I should see a "accepted" status

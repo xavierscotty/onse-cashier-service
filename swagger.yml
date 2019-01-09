@@ -28,19 +28,20 @@ paths:
                 description: Contains the string "OK"
   /cashier/create/:
     post:
-      summary: These endpoints are for withdrawn/deposit balance in an acount.
-      description: Provide a service to deposit and withdraw money
+      summary: |
+       Creates a new debit or credit operation for a given account.
+      description: Provide a service to deposit and withdrawn money
       produces:
         - application/json
       parameters:
         - in: body
           name: body
           required: true
-          description: Cashier service payload
+          description: Data relating to the event at the point-of-time
           schema:
             $ref: "#/definitions/Cashier"
       responses:
-        200:
+        202:
           description: Operations processed
           schema:
               $ref: "#/definitions/Response"
@@ -61,14 +62,14 @@ definitions:
        type: string
        description: Customer Surname
        enum:
-       - deposit
-       - withdrawn
+       - debit
+       - credit
  Response:
     type: object
     properties:
       id:
         type: string
-        description: UUID of the transactions
+        description: UUID of the feed item
       accountName:
         type: string
         description: Account name
@@ -76,13 +77,19 @@ definitions:
        type: string
        description: Customer Surname
        enum:
-       - deposit
-       - withdrawn
+       - debit
+       - credit
       amount:
         type: string
         description: Ammount authorized for action
+      created:
+        type: string
+        format: "date-time"
+        description: A descrite event that happen at a point in time
       status:
         type: string
         description: Possible status values
         enum:
-        - pending
+        - accepted
+        - authorized
+        - complete

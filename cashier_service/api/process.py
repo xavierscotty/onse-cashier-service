@@ -1,6 +1,7 @@
 from flask import current_app, Blueprint, jsonify, request
 from uuid import uuid4
 from json import dumps
+from datetime import datetime
 
 process = Blueprint('process', __name__, url_prefix='/cashier/')
 
@@ -11,6 +12,7 @@ def process_cashier_requests():
     log = current_app.logger
 
     operation_id = str(uuid4())
+    created = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     account_name = req_data['accountNumber']
     amount = req_data['amount']
     action = req_data['action']
@@ -20,13 +22,16 @@ def process_cashier_requests():
         'id': operation_id,
         'accountNumber': account_name,
         'amount': amount,
-        'action': action
+        'action': action,
+        'status': 'accepted',
+        'created': created
     }))
 
     return jsonify({
         'id': operation_id,
         'accountNumber': account_name,
         'amount': amount,
-        'status': 'pending',
-        'action': action
-    }), 201
+        'status': 'accepted',
+        'action': action,
+        'created': created
+    }), 202

@@ -25,7 +25,7 @@ def test_should_produce_event(web_client, logger, broker):
     payload = {
         "accountNumber": "some-acc-number",
         "amount": 10815,
-        "action": "withdrawn"
+        "action": "debit"
     }
     web_client.post('/cashier/create', json=json.loads(json.dumps(payload)))
     broker.produce.assert_called_once()
@@ -35,11 +35,11 @@ def test_should_process_client_request(web_client):
     payload = {
         "accountNumber": "some-acc-number",
         "amount": 10815,
-        "action": "withdrawn"
+        "action": "credit"
     }
     response = web_client.post('/cashier/create', json=json.loads(json.dumps(payload)))
-    assert response.status_code == 201, \
-        f'Expected status code to be 201; got {response.status_code}'
+    assert response.status_code == 202, \
+        f'Expected status code to be 202; got {response.status_code}'
     assert response.is_json, \
         f'Expected content type to be JSON; got "{response.data}'
     assert response.get_json()[
