@@ -42,7 +42,7 @@ paths:
             $ref: "#/definitions/Cashier"
       responses:
         202:
-          description: Operations processed
+          description: Received was received ok and will process shortly.
           schema:
               $ref: "#/definitions/Response"
         404:
