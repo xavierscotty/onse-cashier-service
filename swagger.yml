@@ -70,9 +70,9 @@ definitions:
       id:
         type: string
         description: UUID of the feed item
-      accountName:
+      accountNumber:
         type: string
-        description: Account name
+        description: Account Number
       action:
        type: string
        description: Customer Surname
