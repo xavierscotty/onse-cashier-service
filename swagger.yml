@@ -52,7 +52,7 @@ definitions:
  Cashier:
    type: object
    properties:
-     accountName:
+     accountNumber:
        type: string
        description: Account name
      amount:

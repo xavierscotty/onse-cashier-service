@@ -13,14 +13,14 @@ def process_cashier_requests():
 
     operation_id = str(uuid4())
     created = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
-    account_name = req_data['accountNumber']
+    account_number = req_data['accountNumber']
     amount = req_data['amount']
     operation = req_data['operation']
 
     broker = current_app.broker
     broker.produce(dumps({
         'id': operation_id,
-        'accountNumber': account_name,
+        'accountNumber': account_number,
         'amount': amount,
         'operation': operation,
         'status': 'accepted',
@@ -29,7 +29,7 @@ def process_cashier_requests():
 
     return jsonify({
         'id': operation_id,
-        'accountNumber': account_name,
+        'accountNumber': account_number,
         'amount': amount,
         'status': 'accepted',
         'operation': operation,
