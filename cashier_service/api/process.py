@@ -15,14 +15,14 @@ def process_cashier_requests():
     created = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
     account_name = req_data['accountNumber']
     amount = req_data['amount']
-    action = req_data['action']
+    operation = req_data['operation']
 
     broker = current_app.broker
     broker.produce(dumps({
         'id': operation_id,
         'accountNumber': account_name,
         'amount': amount,
-        'action': action,
+        'operation': operation,
         'status': 'accepted',
         'created': created
     }))
@@ -32,6 +32,6 @@ def process_cashier_requests():
         'accountNumber': account_name,
         'amount': amount,
         'status': 'accepted',
-        'action': action,
+        'operation': operation,
         'created': created
     }), 202

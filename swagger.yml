@@ -58,7 +58,7 @@ definitions:
      amount:
        type: integer
        description: Amount to credit/debit
-     action:
+     operation:
        type: string
        description: Customer Surname
        enum:
@@ -73,7 +73,7 @@ definitions:
       accountNumber:
         type: string
         description: Account Number
-      action:
+      operation:
        type: string
        description: Customer Surname
        enum:
