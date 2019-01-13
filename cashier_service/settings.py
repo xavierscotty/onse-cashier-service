@@ -5,17 +5,17 @@ from os import environ
 
 class Config(object):
     """Base configuration."""
-    ### SWAGGER ###
+    # SWAGGER
     SWAGGER_URL = environ.get('SWAGGER_URL') or '/docs'
     SWAGGER_FILE_PATH = environ.get('SWAGGER_FILE_PATH') or '/../swagger.yml'
-    ### APPLICATION ###
+    # APPLICATION
     APP_NAME = environ.get('APP_NAME') or 'Cashier Service API'
     PORT = environ.get('PORT') or 5001
 
 
 class DevConfig(Config):
     """Development configuration."""
-    ### RabbitMQ ###
+    # RabbitMQ
     RABBITMQ_HOST = environ.get('RABBITMQ_HOST') or ''
     RABBITMQ_QUEUE = environ.get('RABBITMQ_QUEUE') or ''
     RABBITMQ_EXCHANGE_NAME = environ.get('RABBITMQ_EXCHANGE_NAME') or ''

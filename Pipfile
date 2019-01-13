@@ -9,6 +9,7 @@ pylint = "*"
 behave = "*"
 requests-mock = "*"
 autopep8 = "*"
+flake8 = "*"
 
 [packages]
 pika= "*"

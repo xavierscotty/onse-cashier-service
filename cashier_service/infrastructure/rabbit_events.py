@@ -4,10 +4,10 @@ from pika import ConnectionParameters, BlockingConnection
 class RabbitConnection:
     def __init__(self, config):
         self.queue = config.RABBITMQ_QUEUE
-        params = ConnectionParameters(host=config.RABBITMQ_HOST,
-                                      heartbeat_interval=int(
-                                          config.RABBITMQ_HEARTBEAT_INTERVAL),
-                                      blocked_connection_timeout=int(config.RABBITMQ_HEARTBEAT_INTERVAL))
+        params = ConnectionParameters(
+            host=config.RABBITMQ_HOST,
+            heartbeat_interval=int(config.RABBITMQ_HEARTBEAT_INTERVAL),
+            blocked_connection_timeout=int(config.RABBITMQ_HEARTBEAT_INTERVAL))
         self._connection = BlockingConnection(params)
         self._channel = self._connection.channel()
         self._channel.queue_declare(queue=self.queue)

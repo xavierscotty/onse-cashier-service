@@ -1,9 +1,7 @@
-
-import os
 import structlog
 
 from cashier_service import app
-from cashier_service.broker.rabbitevents import RabbitBroker
+from cashier_service.infrastructure.rabbit_events import RabbitBroker
 from cashier_service.settings import config, Config
 
 if __name__ == "__main__":

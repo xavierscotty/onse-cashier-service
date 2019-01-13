@@ -1,7 +1,8 @@
-from flask import current_app, Blueprint, jsonify, request
-from uuid import uuid4
-from json import dumps
 from datetime import datetime
+from json import dumps
+from uuid import uuid4
+
+from flask import current_app, Blueprint, jsonify, request
 
 process = Blueprint('process', __name__, url_prefix='/cashier/')
 
@@ -9,7 +10,6 @@ process = Blueprint('process', __name__, url_prefix='/cashier/')
 @process.route('/create', methods=['POST'])
 def process_cashier_requests():
     req_data = request.get_json()
-    log = current_app.logger
 
     operation_id = str(uuid4())
     created = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")

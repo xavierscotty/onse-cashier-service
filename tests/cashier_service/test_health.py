@@ -1,5 +1,6 @@
-import pytest
 from unittest.mock import Mock
+
+import pytest
 
 from cashier_service.app import create
 from cashier_service.mock.mock_events import MockEvents
@@ -9,7 +10,9 @@ from cashier_service.settings import config
 @pytest.fixture(scope='function')
 def web_client(logger):
     broker = MockEvents()
-    return create(config=config['development'], broker=broker, logger=logger).test_client()
+    return create(config=config['development'],
+                  broker=broker,
+                  logger=logger).test_client()
 
 
 @pytest.fixture(scope='function')
