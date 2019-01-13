@@ -28,4 +28,4 @@ def setup_swagger():
 
 
 def get_app_base_path():
-    return path.dirname(path.realpath(__file__))
+    return path.dirname(path.dirname(path.realpath(__file__)))

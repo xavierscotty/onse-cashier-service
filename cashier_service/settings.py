@@ -7,7 +7,7 @@ class Config(object):
     """Base configuration."""
     # SWAGGER
     SWAGGER_URL = environ.get('SWAGGER_URL') or '/docs'
-    SWAGGER_FILE_PATH = environ.get('SWAGGER_FILE_PATH') or '/../swagger.yml'
+    SWAGGER_FILE_PATH = environ.get('SWAGGER_FILE_PATH') or '/swagger.yml'
     # APPLICATION
     APP_NAME = environ.get('APP_NAME') or 'Cashier Service API'
     PORT = environ.get('PORT') or 5001

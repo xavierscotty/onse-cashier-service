@@ -2,7 +2,9 @@ from datetime import datetime
 from json import dumps
 from uuid import uuid4
 
-from flask import current_app, Blueprint, jsonify, request
+from flask import current_app, Blueprint, jsonify, request, send_from_directory
+
+from cashier_service import get_app_base_path
 
 process = Blueprint('process', __name__, url_prefix='/cashier/')
 
@@ -35,3 +37,8 @@ def process_cashier_requests():
         'operation': operation,
         'created': created
     }), 202
+
+
+@process.route('/swagger.yml', methods=['GET'])
+def get_swagger():
+    return send_from_directory(get_app_base_path(), 'swagger.yml')
