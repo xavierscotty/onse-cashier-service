@@ -18,6 +18,7 @@ flask-swagger-ui = "*"
 pyaml = "*"
 structlog = "*"
 flask-cors = "*"
+schema = "*"
 
 [requires]
 python_version = "3.7"

@@ -22,9 +22,6 @@ def logger():
 
 def test_should_have_web_client(web_client):
     response = web_client.get('/cashier/health')
-    assert response.status_code == 200, \
-        f'Expected status code to be 200; got {response.status_code}'
-    assert response.is_json, \
-        f'Expected content type to be JSON; got "{response.data}'
-    assert response.get_json() == {'message': 'OK'}, \
-        f'Unexpected JSON; got {repr(response.get_json())} '
+    assert response.status_code == 200, f'Expected status code to be 200; got {response.status_code}'  # noqa
+    assert response.is_json, f'Expected content type to be JSON; got "{response.data}'  # noqa
+    assert response.get_json() == {'message': 'OK'}, f'Unexpected JSON; got {repr(response.get_json())}'  # noqa

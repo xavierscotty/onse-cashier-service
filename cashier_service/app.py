@@ -4,11 +4,13 @@ from flask_cors import CORS
 from cashier_service import setup_swagger, get_app_base_path
 from cashier_service.settings import Config
 from cashier_service.controllers.health import health
-from cashier_service.controllers.process import process
+from cashier_service.controllers.create import process
 
 
 def create(config, broker, logger):
-    app = Flask(__name__, static_folder=get_app_base_path(), static_url_path='')
+    app = Flask(__name__,
+                static_folder=get_app_base_path(),
+                static_url_path='')
     app.config.from_object(config)
     CORS(app, resources={r"/cashier/swagger.yml": {"origins": "*"}})
     app.broker = broker
