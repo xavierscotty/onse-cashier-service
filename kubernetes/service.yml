@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cashier-service
+  labels:
+    app: cashier-service
+spec:
+  ports:
+  - name: http
+    port: 5000
+  selector:
+    app: cashier-service
+    tier: api
+  clusterIP: None

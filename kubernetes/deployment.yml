@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cashier-service
+  labels:
+    app: cashier-service
+spec:
+  selector:
+    matchLabels:
+      app: cashier-service
+      tier: api
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: cashier-service
+        tier: api
+    spec:
+      containers:
+      - name: cashier-service
+        image: aklearning/eng-lab-cashier-service
+        imagePullPolicy: Always
+        env:
+        - name: PORT
+          value: "5000"
+        - name: RABBITMQ_PORT
+          value: "5672"
+        - name: RABBITMQ_HOST
+          value: message-bus
+        - name: RABBITMQ_EXCHANGE_NAME
+          value: transactions
+        ports:
+        - containerPort: 5000
